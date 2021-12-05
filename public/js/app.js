@@ -13,9 +13,9 @@ angular.module('myApp', [
   // 3rd party dependencies
   'btford.socket-io'
 ]).
-config(function ($routeProvider, $locationProvider) {
+config(function ($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider.
-    when('/view1', {
+    when('/', {
       templateUrl: 'partials/partial1',
       controller: 'MyCtrl1'
     }).
@@ -23,9 +23,16 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/partial2',
       controller: 'MyCtrl2'
     }).
+    when('/login', {
+      templateUrl: 'partials/sessionsNew',
+      controller: 'SessionsNewCtrl'
+    }).
     otherwise({
-      redirectTo: '/view1'
+      templateUrl: 'partials/partial2',
+      controller: 'MyCtrl2'
     });
+  $httpProvider.defaults.withCredentials = true;
+  $httpProvider.interceptors.push('myInterceptor');
 
   $locationProvider.html5Mode(true);
 });

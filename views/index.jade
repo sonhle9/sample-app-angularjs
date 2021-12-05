@@ -1,19 +1,23 @@
 extends layout
 
 block body
-  div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
-
-    div(ng-view)
-
-    div
-      | Angular Socket.io seed app: v
-      span(app-version)
+  ng-container(ng-controller='AppCtrl')
+    ng-container(ng-include="'./partials/header'")
+    //- header
+    //- h2 Hello {{name}}
+    //- ul.menu
+    //-   li
+    //-     a(href='view1') view1
+    //-   li
+    //-     a(href='view2') view2
+    .container
+      //- .alert.alert-success Micropost created!
+      ng-view
+      ng-container(ng-include="'./partials/footer'")
+      //- footer
+    //- div
+    //-   | Angular Socket.io seed app: v
+    //-   span(app-version)
 
   script(src='/socket.io/socket.io.js')
   script(src='bower_components/angular/angular.js')
@@ -24,3 +28,6 @@ block body
   script(src='js/controllers.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
+  script(src='js/vendor/jquery-1.11.0.min.js')
+  script(src='js/vendor/bootstrap.min.js')
+  script(data-require='ui-bootstrap@*',data-semver='1.3.2',src='https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-1.3.2.js')

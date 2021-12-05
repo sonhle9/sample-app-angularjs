@@ -8,3 +8,15 @@ angular.module('myApp.directives', []).
       elm.text(version);
     };
   });
+  // directive('header', function () {
+  //   return {
+  //     restrict: 'A',
+  //     template: '.../views/partials/header'
+  //   };
+  // }).
+  // directive('footer', function () {
+  //   return {
+  //     restrict: 'A',
+  //     template: '.../views/partials/footer'
+  //   };
+  // });

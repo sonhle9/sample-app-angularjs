@@ -25,7 +25,7 @@ Clone the angular-socket-io-seed repository and start hacking!
 Runs like a typical express app:
 
 ```shell
-node app.js
+npm start
 ```
 
 ### Running tests

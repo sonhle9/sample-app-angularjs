@@ -1,0 +1,42 @@
+//- ng-container(ng-controller='SessionsNewCtrl')
+h1 Log in
+.row
+  .col-md-6.col-md-offset-3
+    //- div(ng-repeat='review in reviews')
+    //-   div(style='background-color:#EEEEEE')
+    //-     p {{review.comment}}
+    //-     p
+    //-       b {{review.by}}
+    //- form(name='reviewForm',ng-submit='reviewForm.$valid && addReview()',novalidate)
+    //-   p {{form.comment}}
+    //-   p {{form.by}}
+    //-   label Comment
+    //-   br
+    //-   textarea(ng-model='form.comment')
+    //-   br
+    //-   label Author
+    //-   br
+    //-   input(ng-model='form.by',type='email',required)
+    //-   br
+    //-   input(type='submit',value='Add Review')
+    //-   br
+    //-   p Form valid? {{reviewForm.$valid}}
+    form(accept-charset='UTF-8',method='post',name='loginForm',ng-submit='loginForm.$valid && handleSubmit()',novalidate)
+      //- p {{form.email}}
+      //- p {{form.password}}
+      //- p {{form.remember_me}}
+      input(type='hidden',name='authenticity_token',value='LSiF2C8aZeXciGARvOKpsopuM51/SbFT9bW8rr7XUXbHT6uZWg8cZ9hX9djvlmRCM01JS559ZOhBZnyIVwLv5w==')
+      label(for='session_email') Email
+      input#session_email.form-control(type='email',name='session[email]',ng-model='form.email',required)
+      label(for='session_password') Password
+      a(href='/password_resets/new') (forgot password)
+      input#session_password.form-control(type='password',name='session[password]',ng-model='form.password',required)
+      label.checkbox.inline(for='session_remember_me')
+        input(name='session[remember_me]',type='hidden',value='0')
+        input#session_remember_me(type='checkbox',value='1',name='session[remember_me]',ng-model='form.remember_me')
+        span Remember me on this computer
+      input.btn.btn-primary(type='submit',name='commit',value='Log in',data-disable-with='Log in',id='inputEl')
+      //- p Form valid? {{loginForm.$valid}}
+    p
+      | New user? 
+      a(href='/signup') Sign up now!

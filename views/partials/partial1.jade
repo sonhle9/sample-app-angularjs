@@ -1,2 +1,105 @@
-p This is the partial for view 1.
-p The current time is {{time}}
+ng-container(ng-show='session.loggedIn')
+  .row
+    aside.col-md-4
+      section.user_info
+        a(href='/users/117')
+          img.gravatar(alt='{{user.name}}',src='https://secure.gravatar.com/avatar/{{gravatar}}?s=50')
+        h1 {{session.value.name}}
+        span
+          a(href='/users/117') view my profile
+        span {{micropost}} microposts
+      section.stats
+        .stats
+          a(href='/users/117/following')
+            strong#following.stat
+              | {{following}}
+            |     following
+          a(href='/users/117/followers')
+            strong#followers.stat
+              | {{followers}}
+            |     followers
+      section.micropost_form
+        form(enctype='multipart/form-data',action='/microposts',accept-charset='UTF-8',method='post')
+          input(type='hidden',name='authenticity_token',value='ZW5BMMtuoKH8x6xJq7WpBV26qM/amL0kQGkgI7mpfQq7T/qFYHXovHmMzFpJrXT6d4YIQbahotv6dpK26fuYEg==')
+          .field
+            textarea#micropost_content(placeholder='Compose new micropost...',name='micropost[content]')
+          input.btn.btn-primary(type='submit',name='commit',value='Post',data-disable-with='Post')
+          span.image
+            input#micropost_image(accept='image/jpeg,image/gif,image/png',type='file',name='micropost[image]')
+        script(type='text/javascript').
+          $('#micropost_image').bind('change', function() {
+          const size_in_megabytes = this.files[0].size/1024/1024;
+          if (size_in_megabytes > 5) {
+          alert('Maximum file size is 5MB. Please choose a smaller file.');
+          $('#micropost_image').val('');
+          }
+          });
+    .col-md-8
+      h3 {{ 'Micropost FEED' | titlecase | limitTo: 14 }}
+      ol.microposts
+        //- li#micropost-308
+        //-   a(href='/users/117')
+        //-     img.gravatar(alt='Memphis',src='https://secure.gravatar.com/avatar/cacb9adf6927b855f6eeac2ca0e27d52?s=50')
+        //-   span.user
+        //-     a(href='/users/117') Memphis
+        //-   span.content
+        //-     | sdsad
+        //-     img(src='img/img-post1.png')
+        //-   span.timestamp
+        //-     | Posted less than a minute ago.
+        //-     a(data-confirm='You sure?',rel='nofollow',data-method='delete',href='/microposts/308') delete
+        //- li#micropost-307
+        //-   a(href='/users/117')
+        //-     img.gravatar(alt='Memphis',src='https://secure.gravatar.com/avatar/cacb9adf6927b855f6eeac2ca0e27d52?s=50')
+        //-   span.user
+        //-     a(href='/users/117') Memphis
+        //-   span.content
+        //-     | dsad
+        //-   span.timestamp
+        //-     | Posted less than a minute ago.
+        //-     a(data-confirm='You sure?',rel='nofollow',data-method='delete',href='/microposts/307') delete
+        li(ng-repeat='i in feed_items',id='micropost-{{i.id}}')
+          a(href='/users/{{i.user_id}}')
+            img.gravatar(alt='{{i.user_name}}',src='https://secure.gravatar.com/avatar/{{i.gravatar_id}}?s={{i.size}}')
+          span.user
+            a(href='/users/{{i.user_id}}') {{i.user_name}}
+          span.content
+            | {{i.content}}
+          span.timestamp
+            | Posted {{i.timestamp}} ago. 
+            a(ng-if='session.value.id === i.user_id',data-confirm='You sure?',rel='nofollow',data-method='delete',href='',ng-click='removeMicropost(i.id)') delete
+      ul.pagination
+        li.page.active
+          a(href='javascript:void(0)') 1
+        li.page
+          a(rel='next',href='/?page=2') 2
+        li.page
+          a(href='/?page=3') 3
+        li.page
+          a(href='/?page=4') 4
+        li.page
+          a(href='/?page=5') 5
+        li.page.gap.disabled
+          a(href='javascript:void(0)') …
+        li.next
+          a(rel='next',href='/?page=2') Next ›
+        li.last
+          a(href='/?page=50') Last »
+      //- pagination(
+      //-   ng-model='currentPage',
+      //-   total-items='feed_items.length',
+      //-   max-size=5,
+      //-   boundary-links='true')
+      //- uib-pagination(total-items=250,ng-model=1,items-per-page=5)
+ng-container(ng-hide='session.loggedIn')
+  .center.jumbotron
+    h1 {{time}}
+    //- h1 Welcome to the Sample App
+    //- h2
+    //-   | This is the home page for the 
+    //-   a(href='https://www.railstutorial.org/') AngularJS Tutorial
+    //-   |       sample application.
+    a.btn.btn-lg.btn-primary(href='/signup') Sign up now!
+  a(href='https://rubyonrails.org/')
+    img(alt='Rails logo',width='200',src='img/AngularJS_logo.svg.png')
+

@@ -1,0 +1,35 @@
+header(class='navbar navbar-fixed-top navbar-inverse')
+  div(class='container')
+    a(id='logo',href='/') {{name}} 
+      span(app-version)
+    nav
+      div(class='navbar-header')
+        button(type='button',class='navbar-toggle collapsed',
+              data-toggle='collapse',
+              data-target='#bs-example-navbar-collapse-1',
+              aria-expanded='false')
+          span(class='sr-only') Toggle navigation
+          span(class='icon-bar')
+          span(class='icon-bar')
+          span(class='icon-bar')
+      ul(class='nav navbar-nav navbar-right collapse navbar-collapse',
+        id='bs-example-navbar-collapse-1')
+        li 
+          a(href='/') Home
+        li
+          a(href='/help') Help
+        li(ng-show='session.loggedIn')
+          a(href='/users') Users
+        li(class='dropdown',ng-show='session.loggedIn')
+          a(href='#',class='dropdown-toggle',data-toggle='dropdown') Account 
+            b(class='caret')
+          ul(class='dropdown-menu')
+            li
+              a(href='/users/117') Profile
+            li
+              a(href='/users/117/edit') Settings
+            li(class='divider')
+            li
+              a(rel='nofollow',data-method='delete',href='/logout') Log out
+        li(ng-hide='session.loggedIn')
+          a(href='/login') Log in
